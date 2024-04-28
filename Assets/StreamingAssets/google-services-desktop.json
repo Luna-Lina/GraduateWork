@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "483701223450",
+    "firebase_url": "https://star-velocity-default-rtdb.firebaseio.com",
+    "project_id": "star-velocity",
+    "storage_bucket": "star-velocity.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:483701223450:android:cefb846b4e373d60c7a1a3",
+        "android_client_info": {
+          "package_name": "com.luna.starvelocity"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBcvkjQ0GP6R3FmsgJ2ndLfhNn8KEvo9v0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
