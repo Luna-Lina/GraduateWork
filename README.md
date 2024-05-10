@@ -1,1 +1,1 @@
-# GraduateWork
+# Graduate-work
