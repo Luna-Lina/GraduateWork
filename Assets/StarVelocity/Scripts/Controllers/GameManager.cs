@@ -11,7 +11,6 @@ namespace StarVelocity.Controllers
     public class GameManager : MonoBehaviour
     {
         [SerializeField] private Player _player;
-        [SerializeField] private TMP_Text _score;
         [SerializeField] private Button _openScoreList;
         [SerializeField] private TMP_Text _scoreText;
         [SerializeField] private ScoreItem _scoreItem;
@@ -20,7 +19,6 @@ namespace StarVelocity.Controllers
         [SerializeField] private AudioSource _backgroundMusic;
         [SerializeField] private AudioClip[] _musicTracks;
 
-        private AdManager _adManager;
         private FirebaseWrapper _firebaseWrapper;
         private MainThreadDispatcher _mainThreadDispatcher;
 
@@ -28,12 +26,10 @@ namespace StarVelocity.Controllers
         private int _currentScore = 0;
         
         [Inject]
-        public void Construct(FirebaseWrapper firebaseWrapper, MainThreadDispatcher mainThreadDispatcher, Player player, AdManager adManager)
+        public void Construct(FirebaseWrapper firebaseWrapper, MainThreadDispatcher mainThreadDispatcher)
         {
             _firebaseWrapper = firebaseWrapper;
             _mainThreadDispatcher = mainThreadDispatcher;
-            _player = player;
-            _adManager = adManager;
             Debug.Log("GameController constructed");
         }
 
@@ -53,7 +49,6 @@ namespace StarVelocity.Controllers
             _player.OnCurrentScore += OnCurrentScore;
             _openScoreList.onClick.AddListener(ShowScoreList);
             _firebaseWrapper.OnDataLoaded += OnDataLoaded;
-            _player.OnKilled += _adManager.ShowRewardedAd;
         }
 
         private void OnDisable()
@@ -69,7 +64,7 @@ namespace StarVelocity.Controllers
 
         private void OnCurrentScore(int score)
         {
-            _currentScore++;
+            _currentScore = score;
             UpdateCurrentScoreUI();
         }
 

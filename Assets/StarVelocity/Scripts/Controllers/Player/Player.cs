@@ -129,6 +129,7 @@ namespace StarVelocity.Controllers
 
         public void CurrentScore()
         {
+            _score++;
             OnCurrentScore?.Invoke(_score);
         }
 
@@ -136,13 +137,6 @@ namespace StarVelocity.Controllers
         {
             FirebaseWrapper.SaveData(PlayerPrefs.GetString("User"), _score.ToString());
             OnPlayerDisabled?.Invoke();
-            _score = 0;
-        }
-
-        public void SetScore(int score)
-        {
-            _score += score;
-            OnCurrentScore?.Invoke(_score);
         }
     }
 }

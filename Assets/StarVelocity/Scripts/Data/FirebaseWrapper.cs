@@ -64,6 +64,8 @@ namespace StarVelocity.Data
 
                 if (snapshot != null && snapshot.Exists)
                 {
+                    bool isNewBestScore = true;
+
                     foreach (var child in snapshot.Children)
                     {
                         var playerJson = child.GetRawJsonValue();
@@ -74,16 +76,30 @@ namespace StarVelocity.Data
 
                             if (player != null && player.playerName == userName)
                             {
-                                if (player.playerScore < int.Parse(score))
+                                if (player.playerScore >= int.Parse(score))
+                                {
+                                    isNewBestScore = false;
+                                }
+                                else
                                 {
                                     FirebaseDatabase.DefaultInstance.RootReference.Child(_firebasePlayerData).Child(userName).SetRawJsonValueAsync(JsonUtility.ToJson(new PlayerData(int.Parse(score), userName)));
                                 }
-                            }
-                            else
-                            {
-                                FirebaseDatabase.DefaultInstance.RootReference.Child(_firebasePlayerData).Child(userName).SetRawJsonValueAsync(JsonUtility.ToJson(new PlayerData(int.Parse(score), userName)));
+
+                                break;
                             }
                         }
+                    }
+
+                    if (isNewBestScore)
+                    {
+                        FirebaseDatabase.DefaultInstance.RootReference.Child(_firebasePlayerData).Child(userName).SetRawJsonValueAsync(JsonUtility.ToJson(new PlayerData(int.Parse(score), userName)));
+                    }
+                }
+                else
+                {
+                    if (!string.IsNullOrEmpty(userName))
+                    {
+                        FirebaseDatabase.DefaultInstance.RootReference.Child(_firebasePlayerData).Child(userName).SetRawJsonValueAsync(JsonUtility.ToJson(new PlayerData(int.Parse(score), userName)));
                     }
                 }
             });

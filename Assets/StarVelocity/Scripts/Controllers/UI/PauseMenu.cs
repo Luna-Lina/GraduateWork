@@ -13,7 +13,8 @@ namespace StarVelocity.Controllers
         [SerializeField] private Button _repeatButton;
         [SerializeField] private Button _optionButton;
         [SerializeField] private Button _menuButton;
-        [SerializeField] private Button _backButton;
+        [SerializeField] private Button _backOptionsButton;
+        [SerializeField] private Button _backscoreLisButton;
         [SerializeField] private Button _pauseButton;
         [SerializeField] private AudioMixerSnapshot _normal;
         [SerializeField] private AudioMixerSnapshot _pause;
@@ -25,7 +26,7 @@ namespace StarVelocity.Controllers
             _repeatButton.onClick.AddListener(RestartLevel);
             _optionButton.onClick.AddListener(OpenOptions);
             _menuButton.onClick.AddListener(ReturnToMenu);
-            _backButton.onClick.AddListener(CloseOptions);
+            _backOptionsButton.onClick.AddListener(CloseOptions);
             _pauseButton.onClick.AddListener(OpenPauseMenu);
         }
 
@@ -52,7 +53,7 @@ namespace StarVelocity.Controllers
             _pauseMenuUI.SetActive(true);
             _bgController.enabled = false;
         }
-
+        
         private void RestartLevel()
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);

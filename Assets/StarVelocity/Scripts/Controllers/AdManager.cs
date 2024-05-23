@@ -8,10 +8,7 @@ namespace StarVelocity.Controllers
         [SerializeField] private string _androidID;
         [SerializeField] private string _iOsID;
         [SerializeField] private string _adUnitId = "Rewarded_Android";
-        //[SerializeField] private string _adBannerId = "Banner_Android";
         [SerializeField] private bool _testMode = true;
-
-        //private string _bottomBanner;
 
         private string _gameId;
 
@@ -34,13 +31,7 @@ namespace StarVelocity.Controllers
             {
                 Advertisement.Initialize(_gameId, _testMode, this);
             }
-
-            //Advertisement.Initialize(_gameId, _testMode);
-
-            //Advertisement.Banner.SetPosition(BannerPosition.BOTTOM_CENTER);
-            //Advertisement.Banner.Show(_bottomBanner);
         }
-
 
         public void OnInitializationComplete()
         {
@@ -49,7 +40,7 @@ namespace StarVelocity.Controllers
 
         public void OnInitializationFailed(UnityAdsInitializationError error, string message)
         {
-            Debug.Log($"Unity Ads Initialization Failed: {error.ToString()} - {message}");
+            Debug.Log($"Unity Ads Initialization Failed: {error} - {message}");
         }
 
         private void LoadAdd()
@@ -58,11 +49,6 @@ namespace StarVelocity.Controllers
             {
                 Advertisement.Load(_adUnitId, this);
             }
-
-            //if (Advertisement.isInitialized)
-            //{
-            //    Advertisement.Load(_adBannerId, this);
-            //}
         }
 
         public void ShowRewardedAd()
@@ -71,11 +57,6 @@ namespace StarVelocity.Controllers
             {
                 Advertisement.Show(_adUnitId, this);
             }
-
-            //if (Advertisement.isInitialized)
-            //{
-            //    Advertisement.Show(_adBannerId, this);
-            //}
         }
 
         public void OnUnityAdsAdLoaded(string placementId)
@@ -85,13 +66,15 @@ namespace StarVelocity.Controllers
 
         public void OnUnityAdsFailedToLoad(string placementId, UnityAdsLoadError error, string message)
         {
-            Debug.Log($"Unity Ads Failed to Load: {error.ToString()} - {message}");
+            Debug.Log($"Unity Ads Failed to Load: {error} - {message}");
+            LoadAdd();
         }
 
         public void OnUnityAdsShowFailure(string placementId, UnityAdsShowError error, string message)
         {
-            Debug.Log($"Unity Ads Show Failure: {error.ToString()} - {message}");
+            Debug.Log($"Unity Ads Show Failure: {error} - {message}");
             Time.timeScale = 1;
+            LoadAdd();
         }
 
         public void OnUnityAdsShowStart(string placementId)
@@ -121,6 +104,8 @@ namespace StarVelocity.Controllers
                 default:
                     break;
             }
+
+            LoadAdd();
         }
     }
 }

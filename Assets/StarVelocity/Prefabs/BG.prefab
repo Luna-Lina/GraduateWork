@@ -49,7 +49,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _materialToModify: {fileID: 2100000, guid: 71964f278f657de49a4e80b943ccbdba, type: 2}
   _offsetAmount: {x: 0, y: 0}
-  _speed: 0.003
+  _speed: 0.005
 --- !u!1 &2432954240660526029
 GameObject:
   m_ObjectHideFlags: 0

@@ -523,7 +523,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8158138177655271398}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -686,6 +686,5 @@ MonoBehaviour:
   _menuButton: {fileID: 7831122424237086532}
   _miss: {fileID: 4003330961206433237, guid: 28dc6f9a355842a4babb519ba0977302, type: 2}
   _normal: {fileID: 24500006, guid: 28dc6f9a355842a4babb519ba0977302, type: 2}
-  _startPanel: {fileID: 0}
   _score: {fileID: 0}
   _bgController: {fileID: 0}

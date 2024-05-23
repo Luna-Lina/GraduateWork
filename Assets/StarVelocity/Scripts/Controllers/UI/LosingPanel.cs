@@ -12,7 +12,6 @@ namespace StarVelocity.Controllers
         [SerializeField] private Button _menuButton;
         [SerializeField] private AudioMixerSnapshot _miss;
         [SerializeField] private AudioMixerSnapshot _normal;
-        [SerializeField] private GameObject _startPanel;
         [SerializeField] private TMP_Text _score;
         [SerializeField] private BGController _bgController;
 

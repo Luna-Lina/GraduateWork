@@ -9,13 +9,13 @@ namespace StarVelocity.Controllers
 {
     public class MainMenuController : MonoBehaviour
     {
-        [SerializeField] private Transition _transition;
+        [SerializeField] private HelpPanel _helpPanel;
         [SerializeField] private Button _play;
         [SerializeField] private Button _settings;
         [SerializeField] private Button _exit;
         [SerializeField] private Button _start;
-        [SerializeField] private Button _back;
-        [SerializeField] private GameObject _settingsMenu;
+        [SerializeField] private Button _backOptionPanel;
+        [SerializeField] private GameObject _optionPanel;
         [SerializeField] private GameObject _startScene;
         [SerializeField] private AudioMixerSnapshot _normal;
         [SerializeField] private AudioMixerSnapshot _pause;
@@ -24,20 +24,21 @@ namespace StarVelocity.Controllers
         [SerializeField] private GameObject _loginPanel;
 
         private int _currentScore = 0;
-        private float transitionDelay = 1.3f;
         
         private void Start()
         {
-            _start.onClick.AddListener(StartScene);
             _play.onClick.AddListener(Play);
-            _settings.onClick.AddListener(OpenSettings);
-            _back.onClick.AddListener(CloseSettings);
+            _settings.onClick.AddListener(OpenOptionPanel);
+            _backOptionPanel.onClick.AddListener(CloseOptionPanel);
             _exit.onClick.AddListener(ExitGame);
             _playGame.onClick.AddListener(PlayGame);
+
+            StartCoroutine(StartScene());
         }
 
-        private void StartScene()
+        private IEnumerator StartScene()
         {
+            yield return new WaitForSeconds(1f);
             _startScene.SetActive(false);
         }
 
@@ -50,43 +51,44 @@ namespace StarVelocity.Controllers
         {
             if (!PlayerPrefs.HasKey("User"))
             {
-                if (!string.IsNullOrEmpty(_userName.text) && _userName.text.Length > 4)
+                if (!string.IsNullOrEmpty(_userName.text) && _userName.text.Length >= 4)
                 {
                     FirebaseWrapper.SaveData(_userName.text, _currentScore.ToString());
                     PlayerPrefs.SetString("User", _userName.text);
-                    _transition.gameObject.SetActive(true);
+                    _helpPanel.gameObject.SetActive(true);
                     StartCoroutine(StartGameWithDelay());
                 }
             }
             else
             {
-                if (!string.IsNullOrEmpty(_userName.text) && _userName.text.Length > 4)
+                if (!string.IsNullOrEmpty(_userName.text) && _userName.text.Length >= 4)
                 {
                     PlayerPrefs.SetString("User", _userName.text);
                 }
 
-                _transition.gameObject.SetActive(true);
+                _helpPanel.gameObject.SetActive(true);
                 StartCoroutine(StartGameWithDelay());
             }
         }
 
         private IEnumerator StartGameWithDelay()
         {
-            yield return new WaitForSeconds(transitionDelay);
+            yield return new WaitForSeconds(1f);
 
-            _transition.LoadScene("Game");
+            _helpPanel.LoadScene("Game");
         }
 
-        private void OpenSettings()
+        private void OpenOptionPanel()
         {
-            _settingsMenu.SetActive(true);
+            _optionPanel.SetActive(true);
             _pause.TransitionTo(0.5f);
         }
 
-        private void CloseSettings()
+        private void CloseOptionPanel()
         {
-            _settingsMenu.SetActive(false);
+            _optionPanel.SetActive(false);
             _normal.TransitionTo(0.5f);
+            Time.timeScale = 1f;
         }
 
         private void ExitGame()
